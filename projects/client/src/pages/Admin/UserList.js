@@ -11,7 +11,7 @@ import {
   Stack,
   Pagination,
 } from '@mui/material';
-import { MoreHoriz, People, Search, PersonAdd } from '@mui/icons-material';
+import { MoreHoriz, People, Search, PersonAdd, SortTwoTone } from '@mui/icons-material';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 import { Link } from 'react-router-dom';
@@ -87,11 +87,6 @@ class UserList extends React.Component {
                   Stock History
                 </Link>
               </MenuItem>
-              <MenuItem>
-                <Link to="/assign-task" className="userlist-banner-menu-link">
-                  Assign Task
-                </Link>
-              </MenuItem>
             </Menu>
           </React.Fragment>
         )}
@@ -111,7 +106,8 @@ class UserList extends React.Component {
         </div>
         <div className="ulc-detail">
           <div className="ulc-detail-name">Maria Marcelinus</div>
-          <div className="ulc-detail-subname">ID User: 19450817110256</div>
+          <div className="ulc-detail-subname">ID: 19450817110256</div>
+          <div className="ulc-detail-subname">Super Admin</div>
           <div className="ulc-detail-subname">Area 1 - DKI Jakarta</div>
           <div className="ulc-detail-subname">Member since: 17-08-1945</div>
           <div className="ulc-detail-bottom">
@@ -185,6 +181,31 @@ class UserList extends React.Component {
                 </div>
               </>
             )}
+            <div className="my-order-banner-menu">
+              <PopupState variant="popover" popupId="demo-popup-menu">
+                {(popupState) => (
+                  <React.Fragment>
+                    <button className="account-button" variant="contained" {...bindTrigger(popupState)}>
+                      <IconButton>
+                        <SortTwoTone />
+                      </IconButton>
+                    </button>
+                    <Menu {...bindMenu(popupState)}>
+                      <MenuItem onClick={popupState.close} sx={{ fontFamily: 'Lora' }}>
+                        User
+                      </MenuItem>
+                      <MenuItem onClick={popupState.close} sx={{ fontFamily: 'Lora' }}>
+                        Super Admin
+                      </MenuItem>
+
+                      <MenuItem>Admin Warehouse A</MenuItem>
+                      <MenuItem>Admin Warehouse B</MenuItem>
+                      <MenuItem>Admin Warehouse C</MenuItem>
+                    </Menu>
+                  </React.Fragment>
+                )}
+              </PopupState>
+            </div>
             <div className="userlist-banner-add">
               <Link to="/add-user">
                 <IconButton>

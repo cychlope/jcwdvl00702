@@ -11,6 +11,7 @@ import {
   VerifiedUser,
   Lock,
   PhotoCamera,
+  Work,
 } from '@mui/icons-material';
 
 import { Link } from 'react-router-dom';
@@ -21,6 +22,8 @@ class DetailUser extends React.Component {
   state = {
     isEdit: false,
     securityValue: 0,
+    setRole: 0,
+    isUser: false,
   };
 
   editHandler = () => {
@@ -33,6 +36,10 @@ class DetailUser extends React.Component {
 
   handleSecurityChange = (event) => {
     this.setState({ ...this.state, securityValue: event.target.value });
+  };
+
+  handleRoleChange = (event) => {
+    this.setState({ ...this.state, setRole: event.target.value });
   };
 
   goBack = () => {
@@ -144,7 +151,7 @@ class DetailUser extends React.Component {
               <ul className="du-c-d-data">
                 <li className="du-c-d-item">
                   <Badge className="profileIcon" />
-                  <span className="du-c-d-item-1">ID User</span>
+                  <span className="du-c-d-item-1">ID</span>
                   <span className="du-c-d-item-2">19450817110256</span>
                 </li>
 
@@ -194,13 +201,13 @@ class DetailUser extends React.Component {
                   <span className="du-c-d-item-1">Status</span>
                   <span className="du-c-d-item-2">Unverified</span>
                 </li>
-                <li className="du-c-d-item">
-                  {this.state.isEdit ? (
-                    <>
+                {this.state.isEdit ? (
+                  <>
+                    <li className="du-c-d-item">
                       <Lock className="profileIcon" />
                       <span className="du-c-d-item-1">Security</span>
                       <Select
-                        sx={{ fontSize: '10px' }}
+                        sx={{ fontSize: '10px', width: '150px' }}
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={this.state.securityValue}
@@ -212,15 +219,41 @@ class DetailUser extends React.Component {
                         <MenuItem value={1}>Safe</MenuItem>
                         <MenuItem value={2}>Banned</MenuItem>
                       </Select>
-                    </>
-                  ) : (
-                    <>
+                    </li>
+                    <li className="du-c-d-item">
+                      <Lock className="profileIcon" />
+                      <span className="du-c-d-item-1">Role</span>
+                      <Select
+                        sx={{ fontSize: '10px', width: '150px' }}
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={this.state.setRole}
+                        className="du-c-d-item-2-select"
+                        onChange={this.handleRoleChange}>
+                        <MenuItem value={0}>
+                          <em>Choose Role</em>
+                        </MenuItem>
+                        <MenuItem value={1}>Super Admin</MenuItem>
+                        <MenuItem value={2}>Admin Warehouse A</MenuItem>
+                        <MenuItem value={3}>Admin Warehouse B</MenuItem>
+                        <MenuItem value={4}>Admin Warehouse C</MenuItem>
+                      </Select>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="du-c-d-item">
                       <Lock className="profileIcon" />
                       <span className="du-c-d-item-1">Security</span>
                       <span className="du-c-d-item-2">Banned</span>
-                    </>
-                  )}
-                </li>
+                    </li>
+                    <li className="du-c-d-item">
+                      <Work className="profileIcon" />
+                      <span className="du-c-d-item-1">Role</span>
+                      <span className="du-c-d-item-2">Super Admin</span>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
             <div className="detailuser-content-option">

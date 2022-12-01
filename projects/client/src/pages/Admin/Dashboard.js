@@ -82,11 +82,6 @@ class Dashboard extends React.Component {
                   Stock History
                 </Link>
               </MenuItem>
-              <MenuItem>
-                <Link to="/assign-task" className="userlist-banner-menu-link">
-                  Assign Task
-                </Link>
-              </MenuItem>
             </Menu>
           </React.Fragment>
         )}
@@ -154,9 +149,11 @@ class Dashboard extends React.Component {
                 <div className="d-b-icon-text">User List</div>
               </div>
               <div classname="d-b-icon" style={{ margin: '10px' }}>
-                <IconButton className="d-b-icon-2" sx={{ backgroundColor: 'rgb(234, 234, 234)' }}>
-                  <Warehouse />
-                </IconButton>
+                <Link to="/warehouse-management">
+                  <IconButton className="d-b-icon-2" sx={{ backgroundColor: 'rgb(234, 234, 234)' }}>
+                    <Warehouse />
+                  </IconButton>
+                </Link>
                 <div className="d-b-icon-text">Warehouse Management</div>
               </div>
               <div classname="d-b-icon" style={{ margin: '10px' }}>
@@ -176,9 +173,11 @@ class Dashboard extends React.Component {
                 <div className="d-b-icon-text">Product Category</div>
               </div>
               <div classname="d-b-icon" style={{ margin: '10px' }}>
-                <IconButton className="d-b-icon-2" sx={{ backgroundColor: 'rgb(234, 234, 234)' }}>
-                  <Inventory />
-                </IconButton>
+                <Link to="/stock-mutation">
+                  <IconButton className="d-b-icon-2" sx={{ backgroundColor: 'rgb(234, 234, 234)' }}>
+                    <Inventory />
+                  </IconButton>
+                </Link>
                 <div className="d-b-icon-text">Stock Mutation</div>
               </div>
               <div classname="d-b-icon" style={{ margin: '10px' }}>
@@ -198,12 +197,6 @@ class Dashboard extends React.Component {
                   <ManageSearch />
                 </IconButton>
                 <div className="d-b-icon-text">Stock History</div>
-              </div>
-              <div classname="d-b-icon" style={{ margin: '10px' }}>
-                <IconButton className="d-b-icon-2" sx={{ backgroundColor: 'rgb(234, 234, 234)' }}>
-                  <Work />
-                </IconButton>
-                <div className="d-b-icon-text">Assign Task</div>
               </div>
             </div>
           </div>

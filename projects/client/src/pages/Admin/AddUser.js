@@ -1,6 +1,6 @@
 import React from 'react';
-import { IconButton, Container, FormControl, Input, InputAdornment } from '@mui/material';
-import { ArrowBack, Person, Email, Lock, AddAPhoto, Visibility, VisibilityOff } from '@mui/icons-material';
+import { IconButton, Container, FormControl, Input, InputAdornment, Select, MenuItem } from '@mui/material';
+import { ArrowBack, Person, Email, Lock, AddAPhoto, Visibility, VisibilityOff, PhotoCamera } from '@mui/icons-material';
 
 import '../../assets/styles/AddUser.css';
 import '../../assets/styles/DetailUser.css';
@@ -13,6 +13,7 @@ class AddUser extends React.Component {
     repassword: '',
     showPassword: false,
     showRepassword: false,
+    setRole: 0,
   };
 
   inputHandler = (event) => {
@@ -43,6 +44,10 @@ class AddUser extends React.Component {
     this.setState({ ...this.state, withPassword: true });
   };
 
+  handleRoleChange = (event) => {
+    this.setState({ ...this.state, setRole: event.target.value });
+  };
+
   goBack = () => {
     this.props.history.goBack();
   };
@@ -58,14 +63,20 @@ class AddUser extends React.Component {
             <div className="adduser-banner-text">Add New User</div>
           </div>
           <div className="adduser-avatar">
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="label"
+              sx={{ marginLeft: '180px', width: '40px', marginBottom: '-30px' }}>
+              <input hidden accept="image/*" type="file" />
+              <PhotoCamera />
+            </IconButton>
+
             <img
               className="adduser-avatar-photo"
               src="https://media.istockphoto.com/id/1309328823/photo/headshot-portrait-of-smiling-male-employee-in-office.jpg?b=1&s=170667a&w=0&k=20&c=MRMqc79PuLmQfxJ99fTfGqHL07EDHqHLWg0Tb4rPXQc="
               alt=""
             />
-            <button className="adduser-avatar-icon">
-              <AddAPhoto />
-            </button>
           </div>
           <div className="adduser-form">
             <FormControl variant="standard" className="adduser-form-input">
@@ -155,6 +166,22 @@ class AddUser extends React.Component {
                 placeholder="Re-enter Password"
               />
             </FormControl>
+
+            <Select
+              sx={{ width: '390px' }}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={this.state.setRole}
+              className="apc-card-icon-select"
+              onChange={this.handleRoleChange}>
+              <MenuItem value={0}>
+                <em>Choose Role</em>
+              </MenuItem>
+              <MenuItem value={1}>Super Admin</MenuItem>
+              <MenuItem value={2}>Admin Warehouse A</MenuItem>
+              <MenuItem value={3}>Admin Warehouse B</MenuItem>
+              <MenuItem value={4}>Admin Warehouse C</MenuItem>
+            </Select>
           </div>
 
           <div className="adduser-button">
