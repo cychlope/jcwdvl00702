@@ -17,6 +17,8 @@ import WarehouseManagement from './pages/Admin/WarehouseManagement';
 import AddWarehouse from './pages/Admin/AddWarehouse';
 import DetailWarehouse from './pages/Admin/DetailWarehouse';
 import StockMutation from './pages/Admin/StockMutation';
+import OrderList from './pages/Admin/OrderList';
+import StockHistory from './pages/Admin/StockHistory';
 
 import ProductDetail from './pages/ProductDetail';
 import ChangePassword from './pages/Auth/PasswordChange/ChangePassword';
@@ -53,6 +55,8 @@ class App extends React.Component {
           <Route component={AddWarehouse} path="/add-warehouse" />
           <Route component={DetailWarehouse} path="/detail-warehouse" />
           <Route component={StockMutation} path="/stock-mutation" />
+          <Route component={OrderList} path="/order-list" />
+          <Route component={StockHistory} path="/stock-history" />
 
           <Route component={ProductDetail} path="/product-detail" />
           <Route component={ProductLists} path="/product-list" />
