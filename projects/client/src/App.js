@@ -19,6 +19,7 @@ import DetailWarehouse from './pages/Admin/DetailWarehouse';
 import StockMutation from './pages/Admin/StockMutation';
 import OrderList from './pages/Admin/OrderList';
 import StockHistory from './pages/Admin/StockHistory';
+import ProductStockHistory from './pages/Admin/ProductStockHistory';
 
 import ProductDetail from './pages/ProductDetail';
 import ChangePassword from './pages/Auth/PasswordChange/ChangePassword';
@@ -57,6 +58,7 @@ class App extends React.Component {
           <Route component={StockMutation} path="/stock-mutation" />
           <Route component={OrderList} path="/order-list" />
           <Route component={StockHistory} path="/stock-history" />
+          <Route component={ProductStockHistory} path="/product-stock-history" />
 
           <Route component={ProductDetail} path="/product-detail" />
           <Route component={ProductLists} path="/product-list" />
