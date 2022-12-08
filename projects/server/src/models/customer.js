@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Customer = sequelize.define(
-    "customer",
+    'customer',
     {
       role: {
         allowNull: false,
@@ -42,9 +42,10 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Customer.associate = (models) => {
-    Customer.hasMany(models.Address, { foreignKey: "user_id" });
-    Customer.hasOne(models.Cart, { foreignKey: "user_id" });
-    Customer.hasOne(models.Order, { foreignKey: "user_id" });
+    Customer.hasMany(models.Address, { foreignKey: 'user_id' });
+    Customer.hasOne(models.Cart, { foreignKey: 'user_id' });
+    Customer.hasOne(models.Order, { foreignKey: 'user_id' });
+    Customer.hasOne(models.Role, { foreignKey: 'user_id' });
   };
   return Customer; //user
 };

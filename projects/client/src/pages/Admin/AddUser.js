@@ -178,9 +178,7 @@ class AddUser extends React.Component {
                 <em>Choose Role</em>
               </MenuItem>
               <MenuItem value={1}>Super Admin</MenuItem>
-              <MenuItem value={2}>Admin Warehouse A</MenuItem>
-              <MenuItem value={3}>Admin Warehouse B</MenuItem>
-              <MenuItem value={4}>Admin Warehouse C</MenuItem>
+              <MenuItem value={2}>Admin Warehouse</MenuItem>
             </Select>
           </div>
 
