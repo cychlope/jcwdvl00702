@@ -35,7 +35,10 @@ import NewAddress from './pages/NewAddress';
 import EditAddress from './pages/EditAddress';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+<<<<<<< HEAD
 import Payment from './pages/Payment'
+=======
+>>>>>>> cdbb567b (start MWA34)
 import EditWarehouse from './pages/Admin/EditWarehouse';
 import HomeFunc from './pages/HomeFunc';
 import Main from './pages/Main';
@@ -46,7 +49,7 @@ import { firebaseAuthentication } from './config/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { loginUser } from './redux/actionCreators/authActionCreators';
-import EditAddress from './pages/EditAddress';
+// import EditAddress from './pages/EditAddress';
 import Axios from 'axios';
 
 export default function App() {
