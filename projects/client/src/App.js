@@ -35,10 +35,7 @@ import NewAddress from './pages/NewAddress';
 import EditAddress from './pages/EditAddress';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
-<<<<<<< HEAD
-import Payment from './pages/Payment'
-=======
->>>>>>> cdbb567b (start MWA34)
+import Payment from './pages/Payment';
 import EditWarehouse from './pages/Admin/EditWarehouse';
 import HomeFunc from './pages/HomeFunc';
 import Main from './pages/Main';
