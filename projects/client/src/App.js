@@ -86,11 +86,19 @@ export default function App() {
       <Switch>
         <Route component={SignUp} path="/sign-up" />
         <Route component={SignIn} path="/sign-in" />
+<<<<<<< HEAD
         <Route path="/sign-up">{mainUser ? <Redirect to="/" /> : <SignUp />}</Route>
         <Route path="/sign-in">{mainUser ? <Redirect to="/" /> : <SignIn />}</Route>
         <Route component={CreatePassword} path="/create-password" />
         <Route component={MyOrder} path="/my-order" />
         <Route path="/dashboard">{mainUser?.role == 'user' ? <Redirect to="/" /> : <Dashboard />}</Route>
+=======
+        {/* <Route path="/sign-up">{mainUser ? <Redirect to="/" /> : <SignUp />}</Route>
+        <Route path="/sign-in">{mainUser ? <Redirect to="/" /> : <SignIn />}</Route> */}
+        <Route component={CreatePassword} path="/create-password" />
+        <Route component={MyOrder} path="/my-order" />
+        {/* <Route path="/dashboard">{mainUser?.role == 'user' ? <Redirect to="/" /> : <Dashboard />}</Route> */}
+>>>>>>> 5c462b23 (MWA 33)
         <Route component={Dashboard} path="/dashboard" />
         <Route component={UserList} path="/user-list" />
         <Route component={DetailUser} path="/detail-user" />
