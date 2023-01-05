@@ -83,6 +83,7 @@ router.post('/add-product', upload.single('picture'), async (req, res) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // GET PRODUCT LIST
 router.get('/get-product', async (req, res) => {
   try {
@@ -110,15 +111,23 @@ router.get('/get-product', async (req, res) => {
     // res.status(200).json(getProduct);
 
 >>>>>>> 5c462b23 (MWA 33)
+=======
+// GET PRODUCT LIST
+router.get('/get-product', async (req, res) => {
+  try {
+>>>>>>> 0aa7a103 (Features MWA34)
     const page = parseInt(req.query.page) || 0;
     const limit = 3;
     const search = req.query.search || '';
     const offset = limit * page;
     const productLength = await Product.findAll({});
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 5c462b23 (MWA 33)
+=======
+>>>>>>> 0aa7a103 (Features MWA34)
     const sort = req.query.sort || 'id';
 
     const result = await Product.findAll({
@@ -135,10 +144,13 @@ router.get('/get-product', async (req, res) => {
     });
     const resultCount = await Product.findAll({
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       // offset: page * limit,
       // order: [[sort, 'ASC']],
 >>>>>>> 5c462b23 (MWA 33)
+=======
+>>>>>>> 0aa7a103 (Features MWA34)
       ...(req.query.search && {
         where: {
           name: {
@@ -162,11 +174,15 @@ router.get('/get-product', async (req, res) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // GET PRODUCT DETAIL BY ID
 =======
 // Get Product DETAIL By ID
 
 >>>>>>> a9a833f5 (features MWA34)
+=======
+// GET PRODUCT DETAIL BY ID
+>>>>>>> 0aa7a103 (Features MWA34)
 router.get('/get-product/:id', async (req, res) => {
   try {
     const getProduct = await Product.findOne({
@@ -196,7 +212,6 @@ router.get('/get-product/:id', async (req, res) => {
     res.status(200).json({ getProduct, stockWh });
   } catch (err) {
     res.status(500).json(err);
-    console.log('err', err);
   }
 });
 
@@ -754,7 +769,6 @@ router.get('/product-stock-history/:id', async (req, res) => {
 });
 
 // UPDATE STOCK
-
 router.patch('/update-stock/:id', async (req, res) => {
   const theProduct = await Product.findOne({
     where: {
@@ -767,12 +781,6 @@ router.patch('/update-stock/:id', async (req, res) => {
       product_id: req.params.id,
     },
   });
-  // const stockId = await Stock.findOne({
-  //   where: {
-  //     warehouse_id: req.body.wh_id,
-  //     product_id: req.params.id,
-  //   },
-  // });
 
   try {
     if (req.body.count === 'add') {
@@ -860,12 +868,10 @@ router.patch('/update-stock/:id', async (req, res) => {
     res.status(201).json(endStock.dataValues.quantity);
   } catch (err) {
     res.status(500).json(err);
-    console.log('err', err);
   }
 });
 
 // GET STOCK MUTATION LIST
-
 router.get('/get-mutation', async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 0;
@@ -873,19 +879,15 @@ router.get('/get-mutation', async (req, res) => {
     const search = req.query.search || '';
     const offset = limit * page;
     const productLength = await Stockmutation.findAll({});
-
     const sort = req.query.sort || 'DESC';
     const filter = req.query.filter || '';
     const myWh = req.query.mywh;
 
-    const result = await Stockmutation.findAll({
+    const resultCount = await Stockmutation.findAll({
       where: {
         move_type: filter,
         [Op.or]: [{ warehouse_id: myWh }, { requester: myWh }],
       },
-      limit: limit,
-      offset: page * limit,
-      order: [['createdAt', sort]],
       ...(req.query.search && {
         where: {
           product_id: {
@@ -894,13 +896,14 @@ router.get('/get-mutation', async (req, res) => {
         },
       }),
     });
-    const resultCount = await Stockmutation.findAll({
+    const result = await Stockmutation.findAll({
       where: {
         move_type: filter,
         [Op.or]: [{ warehouse_id: myWh }, { requester: myWh }],
       },
-      // offset: page * limit,
-      // order: [[sort, 'ASC']],
+      limit: limit,
+      offset: page * limit,
+      order: [['createdAt', sort]],
       ...(req.query.search && {
         where: {
           product_id: {
@@ -925,7 +928,6 @@ router.get('/get-mutation', async (req, res) => {
 });
 
 // STOCK MUTATION
-
 router.post('/stock-mutation', async (req, res) => {
   const stockFrom = await Stock.findOne({
     where: {
@@ -944,13 +946,11 @@ router.post('/stock-mutation', async (req, res) => {
       id: req.body.product,
     },
   });
-
   const mutationData = {
     stock_id: stockFrom.id,
     warehouse_id: req.body.from,
     product_id: req.body.product,
     product_name: theProduct.name,
-    // product_picture: '/projects/server/' + theProduct.picture,
     product_picture: theProduct.picture,
     quantity: parseInt(req.body.quantity),
     requester: req.body.to,
@@ -961,15 +961,12 @@ router.post('/stock-mutation', async (req, res) => {
   try {
     const newMutation = await Stockmutation.create(mutationData);
     res.status(200).json({ theProduct, stockFrom });
-    console.log('res be', res);
   } catch (err) {
     res.status(500).json(err);
-    console.log('err be', err);
   }
 });
 
 // RESPOND MUTATION - MANUAL
-
 router.patch('/stock-mutation', async (req, res) => {
   const theMutation = await Stockmutation.findOne({
     where: {
@@ -1052,10 +1049,8 @@ router.patch('/stock-mutation', async (req, res) => {
         }
       );
       res.status(200).json({ historyData });
-      console.log('accept res', res);
     } catch (err) {
       res.status(500).json(err);
-      console.log('err', err);
     }
   } else if (req.body.respond === 'accept') {
     if (theStockFrom.quantity >= theMutation.quantity) {
@@ -1098,10 +1093,8 @@ router.patch('/stock-mutation', async (req, res) => {
         );
         const newHistory = await Stockhistory.bulkCreate(historyData, { returning: true });
         res.status(200).json({ historyData });
-        console.log('accept res', res);
       } catch (err) {
         res.status(500).json(err);
-        console.log('err', err);
       }
     } else {
       try {
@@ -1144,18 +1137,17 @@ router.patch('/stock-mutation', async (req, res) => {
         );
 
         const newHistory = await Stockhistory.bulkCreate(historyDataAlternate, { returning: true });
-
         const message = `Mutation success but amount available is only ` + theStockFrom.quantity + ` pcs.`;
         res.status(200).json({ historyDataAlternate, message });
       } catch (err) {
         res.status(500).json(err);
-        console.log('err', err);
       }
     }
   }
 });
 
 module.exports = router;
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
@@ -1215,3 +1207,5 @@ module.exports = router;
 
 // module.exports = router;
 >>>>>>> 5c462b23 (MWA 33)
+=======
+>>>>>>> 0aa7a103 (Features MWA34)
