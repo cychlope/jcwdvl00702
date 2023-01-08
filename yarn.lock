@@ -5160,11 +5160,7 @@
   "resolved" "https://registry.npmjs.org/cli-width/-/cli-width-3.0.0.tgz"
   "version" "3.0.0"
 
-<<<<<<< HEAD
-"client@file:D:\\Purwadhika\\Group\\jcwdvl00702\\projects\\client":
-=======
 "client@file:/Users/andrew/Code/maria/Purwadhika/MWA/jcwdvl00702/projects/client":
->>>>>>> 3ee76bfc (tes)
   "resolved" "file:projects/client"
   "version" "0.1.0"
   dependencies:
@@ -13038,11 +13034,7 @@
   "resolved" "https://registry.npmjs.org/server-destroy/-/server-destroy-1.0.1.tgz"
   "version" "1.0.1"
 
-<<<<<<< HEAD
-"server@file:D:\\Purwadhika\\Group\\jcwdvl00702\\projects\\server":
-=======
 "server@file:/Users/andrew/Code/maria/Purwadhika/MWA/jcwdvl00702/projects/server":
->>>>>>> 3ee76bfc (tes)
   "resolved" "file:projects/server"
   "version" "0.1.0"
   dependencies:

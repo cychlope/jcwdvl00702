@@ -1,10 +1,10 @@
 const {
-  models: { Product, Stock, Stockmutation, Stockhistory },
+  models: { Category, Product, Stock, Stockmutation, Stockhistory },
 } = require('../models');
 const router = require('express').Router();
 const multer = require('multer');
 const { where, Op } = require('sequelize');
-const stockhistory = require('../models/stockhistory');
+// const stockhistory = require('../models/stockhistory');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -15,6 +15,102 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
+
+// ADD CATEGORY
+router.post('/add-category', upload.single('image'), async (req, res) => {
+  try {
+    let categoryName = await Category.findAll();
+    let checkBox = false;
+
+    for (let i = 0; i < categoryName.length; i++) {
+      if (req.body.name.toLowerCase() === categoryName[i].name.toLowerCase()) {
+        checkBox = true;
+        break;
+      }
+    }
+    if (checkBox === true) {
+      res.status(500).json(err);
+    } else {
+      let picPathArray = req.file.path.split('/');
+      let picPath = 'http://localhost:3300/' + picPathArray[1] + '/' + picPathArray[2];
+
+      const newCategory = await Category.create({
+        name: req.body.name,
+        alt_name: req.body.name.toLowerCase(),
+        picture: picPath,
+      });
+      const categoryId = await Category.findOne({
+        where: {
+          name: req.body.name,
+        },
+      });
+      res.status(200).json(newCategory);
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// GET CATEGORY LIST
+router.get('/get-category', async (req, res) => {
+  try {
+    const result = await Category.findAll();
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// DELETE CATEGORY
+router.delete('/delete-category/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deleteCategory = await Category.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).json(deleteCategory);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// EDIT CATEGORY
+router.patch('/edit-category/:id', async (req, res) => {
+  try {
+    let categoryName = await Category.findAll();
+    let checkBox = false;
+
+    for (let i = 0; i < categoryName.length; i++) {
+      if (req.body.name.toLowerCase() === categoryName[i].name.toLowerCase()) {
+        checkBox = true;
+        break;
+      }
+    }
+    if (checkBox === true) {
+      res.status(500).json(err);
+    } else {
+      let updateCategory = await Category.update(
+        {
+          name: req.body.name,
+          alt_name: req.body.name.toLowerCase(),
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      res.status(201).json({
+        message: 'Success',
+        data: updateCategory,
+      });
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // ADD PRODUCT
 router.post('/add-product', upload.single('picture'), async (req, res) => {
@@ -37,7 +133,7 @@ router.post('/add-product', upload.single('picture'), async (req, res) => {
         price: req.body.price,
         quantity_total: req.body.quantity_total,
         product_detail: req.body.product_detail,
-        category: req.body.category,
+        category_id: req.body.category_id,
         picture: req.file.path,
       });
       const productId = await Product.findOne({
@@ -78,16 +174,10 @@ router.get('/get-product', async (req, res) => {
     const search = req.query.search || '';
     const offset = limit * page;
     const productLength = await Product.findAll({});
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 5c462b23 (MWA 33)
-=======
->>>>>>> 0aa7a103 (Features MWA34)
     const sort = req.query.sort || 'id';
 
     const result = await Product.findAll({
+      include: [Category],
       limit: limit,
       offset: page * limit,
       order: [[sort, 'ASC']],
@@ -100,14 +190,6 @@ router.get('/get-product', async (req, res) => {
       }),
     });
     const resultCount = await Product.findAll({
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-      // offset: page * limit,
-      // order: [[sort, 'ASC']],
->>>>>>> 5c462b23 (MWA 33)
-=======
->>>>>>> 0aa7a103 (Features MWA34)
       ...(req.query.search && {
         where: {
           name: {
@@ -134,6 +216,7 @@ router.get('/get-product', async (req, res) => {
 router.get('/get-product/:id', async (req, res) => {
   try {
     const getProduct = await Product.findOne({
+      include: [Category],
       where: {
         id: req.params.id,
       },
@@ -177,7 +260,6 @@ router.put('/edit-product/:id', upload.single('picture'), async (req, res) => {
       id: req.params.id,
     },
   });
-  const pages = Math.ceil(resultCount.length / limit);
 
   try {
     let updateProduct = await Product.update(
@@ -185,7 +267,7 @@ router.put('/edit-product/:id', upload.single('picture'), async (req, res) => {
         name: req.body.name,
         price: req.body.price,
         product_detail: req.body.product_detail,
-        category: req.body.category,
+        category_id: req.body.category,
         picture: req.file.path,
       },
       {
@@ -640,6 +722,7 @@ router.get('/get-stock-history', async (req, res) => {
       }),
     });
     const result = await Product.findAll({
+      include: [Category],
       limit: limit,
       offset: page * limit,
       order: [[sort, 'ASC']],
@@ -682,6 +765,7 @@ router.get('/product-stock-history/:id', async (req, res) => {
     },
   });
   const getProduct = await Product.findOne({
+    include: [Category],
     where: {
       id: req.params.id,
     },
@@ -1216,65 +1300,3 @@ router.get('/product-stock-history/:id', async (req, res) => {
 });
 
 module.exports = router;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-// Maria Pagination - Search - Sort
-
-// const {
-//   models: { Example },
-// } = require('../models');
-// const router = require('express').Router();
-// const customer = require('../models/example');
-// // const { Sequelize, Op } = require('sequelize');
-// const Sequelize = require('sequelize');
-// const Op = Sequelize.Op;
-
-// router.get('/get', async (req, res) => {
-//   const page = parseInt(req.query.page) || 0;
-//   const limit = 2;
-//   const search = req.query.search || '';
-//   const offset = limit * page;
-//   const exampleLength = await Example.findAll({});
-
-//   const sort = req.query.sort || 'id';
-
-//   const result = await Example.findAll({
-//     limit: limit,
-//     offset: page * limit,
-//     order: [[sort, 'ASC']],
-//     ...(req.query.search && {
-//       where: {
-//         name: {
-//           [Op.like]: `%${req.query.search}%`,
-//         },
-//       },
-//     }),
-//   });
-//   const resultCount = await Example.findAll({
-//     // offset: page * limit,
-//     // order: [[sort, 'ASC']],
-//     ...(req.query.search && {
-//       where: {
-//         name: {
-//           [Op.like]: `%${req.query.search}%`,
-//         },
-//       },
-//     }),
-//   });
-//   const pages = Math.ceil(resultCount.length / limit);
-
-//   res.json({
-//     result: result,
-//     pages: pages,
-//     page: page,
-//     order: sort,
-//     search: search,
-//   });
-// });
-
-// module.exports = router;
->>>>>>> 5c462b23 (MWA 33)
-=======
->>>>>>> 0aa7a103 (Features MWA34)
