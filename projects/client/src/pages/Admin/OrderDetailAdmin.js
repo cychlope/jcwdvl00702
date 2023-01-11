@@ -45,7 +45,7 @@ export default function OrderDetailAdmin() {
   useEffect(() => {
     const getOrderList = async () => {
       const response = await Axios.get(
-        `http://localhost:3300/api/order/get-order-cart-product/${userCalledId}`
+        `${process.env.REACT_APP_API_BASE_URL}/order/get-order-cart-product/${userCalledId}`
       );
       console.log(response?.data);
       console.log(response?.data.orderitems, "ini orderitems");
@@ -142,6 +142,11 @@ export default function OrderDetailAdmin() {
       </div>
     );
   };
+
+  const paymentDetail = [
+    { title: "Total", value: "Rp 126.789.999 ,-" },
+    { title: "Payment Method", value: "Bank Transfer" },
+  ];
 
   return (
     <Container maxWidth="xs" sx={{ backgroundColor: "white" }}>

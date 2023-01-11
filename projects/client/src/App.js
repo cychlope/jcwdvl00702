@@ -9,7 +9,7 @@ import Dashboard from "./pages/Admin/Dashboard";
 import UserList from "./pages/Admin/UserList";
 import DetailUser from "./pages/Admin/DetailUser";
 import AddUser from "./pages/Admin/AddUser";
-import ProductCategory from "./pages/Admin/ProductCategory";
+import ProductCategory from "./pages/Admin/ProductCategories";
 import ProductListAdmin from "./pages/Admin/ProductListAdmin";
 import ProductDetailAdmin from "./pages/Admin/ProductDetailAdmin";
 import ProductAdd from "./pages/Admin/ProductAdd";
@@ -49,7 +49,6 @@ import { useState } from "react";
 import { loginUser } from "./redux/actionCreators/authActionCreators";
 import Axios from "axios";
 
-
 export default function App() {
   const dispatch = useDispatch();
 
@@ -59,7 +58,9 @@ export default function App() {
         user: user.providerData[0],
         id: user.uid,
       };
-      Axios.get(`http://localhost:3300/api/admin/get-user-one/${data.id}`)
+      Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/admin/get-user-one/${data.id}`
+      )
         .then((res) => {
           const getRes = res.data;
           const dataPersist = {

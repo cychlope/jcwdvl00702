@@ -64,7 +64,7 @@ function MyOrder() {
   useEffect(() => {
     const getOrderList = async () => {
       const response = await Axios.get(
-        `http://localhost:3300/api/order/get-order-cart-user-product/${userUID}`
+        `${process.env.REACT_APP_API_BASE_URL}/order/get-order-cart-user-product/${userUID}`
       );
       console.log(response?.data);
       setOrderDetails(response?.data);
