@@ -164,21 +164,19 @@ class StockHistory extends React.Component {
             </div>
 
             <div className="shc-detail-bottom">
-              <Link to="/product-stock-history" className="pladmin-banner-menu-link">
-                <Button
-                  sx={{
-                    borderRadius: '20px',
-                    backgroundColor: 'rgb(153,255,153,0.9)',
-                    fontSize: '8px',
-                    fontFamily: 'Lora',
-                    color: 'black',
-                  }}
-                  variant="contained"
-                  className="shc-detail-bottom-detail"
-                  onClick={() => this.detailBtnHandler(val.id)}>
-                  Detail
-                </Button>
-              </Link>
+              <Button
+                sx={{
+                  borderRadius: '20px',
+                  backgroundColor: 'rgb(153,255,153,0.9)',
+                  fontSize: '8px',
+                  fontFamily: 'Lora',
+                  color: 'black',
+                }}
+                variant="contained"
+                className="shc-detail-bottom-detail"
+                onClick={() => this.detailBtnHandler(val.id)}>
+                Detail
+              </Button>
             </div>
           </div>
         </div>

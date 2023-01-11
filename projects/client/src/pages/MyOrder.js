@@ -36,7 +36,7 @@ function MyOrder() {
   const userData = user?.role;
   console.log(userData);
 
-  const [activeTab, setActiveTab] = useState();
+  const [activeTab, setActiveTab] = useState('1');
   const [orderDetails, setOrderDetails] = useState();
   const [isSearch, setIsSearch] = useState(false);
   const [openC, setOpenC] = useState(false);
@@ -52,8 +52,8 @@ function MyOrder() {
   //   setOpenC: false,
   // };
 
-  const handleChange = () => {
-    setActiveTab();
+  const handleChange = (e, value) => {
+    setActiveTab(value);
   };
 
   useEffect(() => {

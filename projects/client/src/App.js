@@ -58,6 +58,7 @@ export default function App() {
         user: user.providerData[0],
         id: user.uid,
       };
+      console.log('data', data);
       Axios.get(`http://localhost:3300/api/admin/get-user-one/${data.id}`)
         .then((res) => {
           const getRes = res.data;

@@ -1,15 +1,6 @@
 import Axios from 'axios';
 import { useState, useEffect } from 'react';
-import {
-  ArrowBack,
-  SportsSoccerOutlined,
-  BusinessCenterOutlined,
-  DirectionsBikeOutlined,
-  HikingOutlined,
-  HandymanOutlined,
-  MonitorHeartOutlined,
-  FitnessCenterOutlined,
-} from '@mui/icons-material';
+import { ArrowBack } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
 import { Container, Button, IconButton, InputBase, Select, MenuItem, TextField } from '@mui/material';
 import '../../assets/styles/ProductAdd.css';
@@ -54,7 +45,7 @@ export default function ProductAdd() {
     validationSchema: Yup.object().shape({
       name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
       product_detail: Yup.string().min(2, 'Too Short!').max(100, 'Too Long!'),
-      category_id: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
+      category_id: Yup.string(),
     }),
     validateOnChange: false,
     onSubmit: async (values) => {
