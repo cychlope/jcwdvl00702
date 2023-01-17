@@ -208,7 +208,11 @@ export default function AddUser() {
         </div>
 
         <div className="adduser-button">
-          <button class="adduser-button-2" onClick={formik.handleSubmit}>
+          <button
+            class="adduser-button-2"
+            onClick={formik.handleSubmit}
+            // onClick={console.log('tes')}
+          >
             Add User
           </button>
         </div>

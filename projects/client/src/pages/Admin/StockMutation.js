@@ -36,7 +36,7 @@ class StockMutation extends React.Component {
     value: 'auto',
     status: '',
     isSearch: false,
-    isAdmin: true,
+    isSuperAdmin: true,
     setAdd: false,
     askFrom: 0,
     askTo: 0,
@@ -54,8 +54,40 @@ class StockMutation extends React.Component {
   };
 
   componentDidMount() {
+    this.getUser();
     this.fetchMutation(0, '', '', this.state.value);
+    // console.log(mainUser);
   }
+
+  getUser = () => {
+    firebaseAuthentication.onAuthStateChanged((user) => {
+      const data = {
+        user: user.providerData[0],
+        id: user.uid,
+      };
+      console.log('data', data);
+      Axios.get(`http://localhost:3300/api/admin/get-user-one/${data.id}`)
+        .then((res) => {
+          const getRes = res.data;
+          const dataPersist = {
+            user: getRes.result,
+            id: getRes.result.customer_uid,
+          };
+          dispatch(loginUser(dataPersist));
+        })
+        .catch((error) => {
+          console.log(error);
+          alert(error);
+        });
+      dispatch(loginUser(data));
+    });
+  };
+
+  // user = useSelector((state) => ({
+  //   user: state.auth.user,
+  // }));
+  // const mainUser = user.user;
+  // console.log(mainUser);
 
   inputHandler = (event) => {
     const value = event.target.value;
